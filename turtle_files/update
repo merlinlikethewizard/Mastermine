@@ -1,0 +1,17 @@
+print('Broadcasting update request...')
+rednet.broadcast('/disk/turtle_files/', 'update_request')
+local sender, message, protocal = rednet.receive('update_package')
+
+for _, file_name in pairs(fs.list('/')) do
+    if file_name ~= 'rom' and file_name ~= 'persistent' then
+        fs.delete(file_name)
+    end
+end
+
+for file_name, file_contents in pairs(message) do
+    file = fs.open(file_name, 'w')
+    file.write(file_contents)
+    file.close()
+end
+
+os.reboot()

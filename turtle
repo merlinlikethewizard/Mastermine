@@ -1,0 +1,9 @@
+for _, filename in pairs(fs.list('/')) do
+    if filename ~= 'rom' and filename ~= 'disk' and filename ~= 'persistent' then
+        fs.delete(filename)
+    end
+end
+for _, filename in pairs(fs.list('/disk/turtle_files')) do
+    fs.copy('/disk/turtle_files/' .. filename, '/' .. filename)
+end
+os.reboot()
