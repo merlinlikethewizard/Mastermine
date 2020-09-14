@@ -122,12 +122,6 @@ getblock = {
 }
 
 
-function delay(duration)
-    sleep(duration)
-    return true
-end
-
-
 function up()
     return go('up')
 end
