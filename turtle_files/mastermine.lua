@@ -10,7 +10,6 @@ function parse_requests()
         elseif message.action == 'update' then
             os.run({}, '/update')
         elseif message.request_id == -1 or message.request_id == state.request_id then -- MAKE SURE REQUEST IS CURRENT
-            print('vault 3')
             if state.initialized or message.action == 'initialize' then
                 print('Directive: ' .. message.action)
                 state.busy = true
