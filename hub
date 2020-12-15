@@ -12,7 +12,7 @@ if fs.exists('/mine') then
 end
 
 for _, filename in pairs(fs.list('/')) do
-    if filename ~= 'rom' and filename ~= 'disk' and filename ~= 'persistent' then
+    if filename ~= 'rom' and filename ~= 'disk' and filename ~= 'openp' and filename ~= 'ppp' and filename ~= 'persistent' then
         fs.delete(filename)
     end
 end

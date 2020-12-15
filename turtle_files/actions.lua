@@ -122,6 +122,12 @@ getblock = {
 }
 
 
+function delay(duration)
+    sleep(duration)
+    return true
+end
+
+
 function up()
     return go('up')
 end
@@ -466,9 +472,11 @@ function prepare(min_fuel_amount)
     if not go_to_refuel() then return false end
     if not dump_items() then return false end
     turtle.select(1)
-    while turtle.getFuelLevel() < min_fuel_amount do
-        if not turtle.suck(math.min(64, math.ceil(min_fuel_amount / config.fuel_per_unit))) then return false end
-        turtle.refuel()
+    if turtle.getFuelLevel() ~= 'unlimited' then
+        while turtle.getFuelLevel() < min_fuel_amount do
+            if not turtle.suck(math.min(64, math.ceil(min_fuel_amount / config.fuel_per_unit))) then return false end
+            turtle.refuel()
+        end
     end
     return true
 end

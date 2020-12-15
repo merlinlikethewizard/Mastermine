@@ -238,7 +238,7 @@ end
 
 function good_on_fuel(mining_turtle, chunky_turtle)
     local fuel_needed = math.ceil(basics.distance(mining_turtle.data.location, config.locations.mine_exit) * 1.5)
-    return mining_turtle.data.fuel_level > fuel_needed and chunky_turtle.data.fuel_level > fuel_needed
+    return (mining_turtle.data.fuel_level == "unlimited" or mining_turtle.data.fuel_level > fuel_needed) and (chunky_turtle.data.fuel_level == "unlimited" or chunky_turtle.data.fuel_level > fuel_needed)
 end
 
 
@@ -276,8 +276,8 @@ end
 
 function free_turtle(turtle)
     if turtle.pair then
-        fs.delete(state.turtles_dir_path .. turtle.id .. '/deployed', 'w')
-        fs.delete(state.turtles_dir_path .. turtle.pair.id .. '/deployed', 'w')
+        fs.delete(state.turtles_dir_path .. turtle.id .. '/deployed')
+        fs.delete(state.turtles_dir_path .. turtle.pair.id .. '/deployed')
         turtle.pair.pair = nil
         turtle.pair = nil
         turtle.strip.turtles = nil
@@ -371,7 +371,7 @@ end
 
 function check_pair_fuel(turtle)
     if state.min_fuel then
-        if turtle.data.fuel_level <= state.min_fuel then
+        if (turtle.data.fuel_level ~= "unlimited" and turtle.data.fuel_level <= state.min_fuel) then
             add_task(turtle, {action = 'prepare', data = {state.min_fuel}})
         else
             add_task(turtle, {action = 'pass', end_state = 'pair'})
@@ -387,7 +387,7 @@ function send_turtle_up(turtle)
         if turtle.strip then
             
             if turtle.data.turtle_type == 'chunky' and turtle.data.location.y == turtle.strip.y then
-                add_task(turtle, {action = 'forward'})
+                add_task(turtle, {action = 'delay', data={3}})
             end
             
             add_task(turtle, {action = 'go_to_mine_exit', data = {turtle.strip}})
@@ -635,7 +635,7 @@ function command_turtles()
                         send_turtle_up(turtle)
                     elseif not basics.in_area(turtle.data.location, config.locations.control_room_area) then
                         halt(turtle)
-                    elseif turtle.data.item_count > 0 or turtle.data.fuel_level < config.fuel_per_unit then
+                    elseif turtle.data.item_count > 0 or (turtle.data.fuel_level ~= "unlimited" and turtle.data.fuel_level < config.fuel_per_unit) then
                         add_task(turtle, {action = 'prepare', data = {config.fuel_per_unit}})
                     elseif state.on then
                         add_task(turtle, {

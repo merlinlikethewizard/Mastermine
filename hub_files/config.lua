@@ -14,8 +14,7 @@ vein_max                   = 64
 dig_blacklist              = {'computer', 'chest', 'chair'}
 
 mine_levels = {
-    {level = 12, chance = 0.6},
-    {level = 50, chance = 0.4},
+    {level = 52, chance = 1.0},
 }
 
 paths = {
