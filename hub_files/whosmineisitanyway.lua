@@ -455,7 +455,6 @@ end
 function user_input(input)
     -- PROCESS USER INPUT FROM USER_INPUT TABLE
     while #state.user_input > 0 do
-        sleep(0.5)
         local input = table.remove(state.user_input, 1)
         local next_word = string.gmatch(input, '%S+')
         local command = next_word()

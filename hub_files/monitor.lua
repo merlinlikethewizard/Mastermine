@@ -524,10 +524,10 @@ end
 function draw_location(location, color)
     if location then
         local pixel = {
-            x = monitor_width  - math.floor((location.x - min_location.x) / zoom_factor),
-            y = monitor_height - math.floor((location.z - min_location.z) / zoom_factor),
---            x = math.floor((location.x - min_location.x) / zoom_factor),
---            y = math.floor((location.z - min_location.z) / zoom_factor),
+            -- x = monitor_width  - math.floor((location.x - min_location.x) / zoom_factor),
+            -- y = monitor_height - math.floor((location.z - min_location.z) / zoom_factor),
+            x = math.floor((location.x - min_location.x) / zoom_factor),
+            y = math.floor((location.z - min_location.z) / zoom_factor),
         }
         if pixel.x >= 1 and pixel.x <= monitor_width and pixel.y >= 1 and pixel.y <= monitor_height then
             if color then
@@ -547,8 +547,8 @@ function draw_monitor()
     
     zoom_factor = math.pow(2, monitor_zoom_level)
     min_location = {
-        x = monitor_location.x - math.floor(monitor_width  * zoom_factor / 2),
-        z = monitor_location.z - math.floor(monitor_height * zoom_factor / 2),
+        x = monitor_location.x - math.floor(monitor_width  * zoom_factor / 2) - 1,
+        z = monitor_location.z - math.floor(monitor_height * zoom_factor / 2) - 1,
     }
     
     local mined = {}
@@ -673,13 +673,13 @@ function draw_monitor()
     term.setCursorPos(elements.center.x, elements.center.y)
     term.write('*')
     term.setCursorPos(elements.up.x, elements.up.y)
-    term.write('S')
-    term.setCursorPos(elements.down.x, elements.down.y)
     term.write('N')
+    term.setCursorPos(elements.down.x, elements.down.y)
+    term.write('S')
     term.setCursorPos(elements.left.x, elements.left.y)
-    term.write('E')
-    term.setCursorPos(elements.right.x, elements.right.y)
     term.write('W')
+    term.setCursorPos(elements.right.x, elements.right.y)
+    term.write('E')
     term.setCursorPos(elements.level_up.x, elements.level_up.y)
     term.write('+')
     term.setCursorPos(elements.level_down.x, elements.level_down.y)
@@ -712,13 +712,13 @@ end
 
 function touch_monitor(monitor_touch)
     if monitor_touch.x == elements.up.x and monitor_touch.y == elements.up.y then
-        monitor_location.z = monitor_location.z + zoom_factor
-    elseif monitor_touch.x == elements.down.x and monitor_touch.y == elements.down.y then
         monitor_location.z = monitor_location.z - zoom_factor
+    elseif monitor_touch.x == elements.down.x and monitor_touch.y == elements.down.y then
+        monitor_location.z = monitor_location.z + zoom_factor
     elseif monitor_touch.x == elements.left.x and monitor_touch.y == elements.left.y then
-        monitor_location.x = monitor_location.x + zoom_factor
-    elseif monitor_touch.x == elements.right.x and monitor_touch.y == elements.right.y then
         monitor_location.x = monitor_location.x - zoom_factor
+    elseif monitor_touch.x == elements.right.x and monitor_touch.y == elements.right.y then
+        monitor_location.x = monitor_location.x + zoom_factor
     elseif monitor_touch.x == elements.level_up.x and monitor_touch.y == elements.level_up.y then
         monitor_level_index = math.min(monitor_level_index + 1, #config.mine_levels)
         select_mine_level()

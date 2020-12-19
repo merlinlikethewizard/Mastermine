@@ -39,6 +39,7 @@ while true do
                         end
                     end
                 end
+                update_package.hub_id = os.getComputerID()
                 rednet.send(sender, update_package, 'update_package')
             end
         end

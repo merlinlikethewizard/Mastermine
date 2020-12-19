@@ -1,1 +1,1 @@
-os.run({}, '/disk/hub')
+os.run({}, '/disk/hub.lua')
