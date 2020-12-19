@@ -1,4 +1,6 @@
 -- CONTINUOUSLY BROADCAST STATUS REPORTS
+hub_id = tonumber(fs.open('/hub_id', 'r').readAll())
+
 while true do
 
     state.item_count = 0
@@ -11,7 +13,7 @@ while true do
         end
     end
     
-    rednet.broadcast({
+    rednet.send(hub_id, {
             session_id       = state.session_id,
             request_id       = state.request_id,
             turtle_type      = state.type,
