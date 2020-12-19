@@ -13,5 +13,4 @@ https://www.curseforge.com/minecraft/mc-mods/cc-tweaked
 
 https://github.com/rolandoislas/PeripheralsPlusOne
 
-^^^ Required by PeripheralsPlusOne ^^^
-https://www.curseforge.com/minecraft/mc-mods/the-framework
+Required by PeripheralsPlusOne: https://www.curseforge.com/minecraft/mc-mods/the-framework
