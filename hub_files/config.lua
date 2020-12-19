@@ -368,11 +368,6 @@ fuelnames = {
 ---==[ SCREEN ]==---
 
 
--- SIDE OF THE HUB COMPUTER THAT THE
--- MONITOR IS ON
-monitor_side = 'left'
-
-
 -- MAXIMUM ZOOM OUT (INVERSE) OF THE
 -- MAP SCREEN
 monitor_max_zoom_level = 5

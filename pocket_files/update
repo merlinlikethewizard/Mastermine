@@ -1,3 +1,5 @@
+rednet.open('back')
+
 print('Broadcasting update request...')
 rednet.broadcast('/disk/pocket_files/', 'update_request')
 local sender, message, protocal = rednet.receive('update_package')

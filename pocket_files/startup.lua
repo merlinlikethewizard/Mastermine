@@ -3,12 +3,7 @@ os.setComputerLabel('pocket ' .. os.getComputerID())
 
 
 -- OPEN REDNET
-for _, side in pairs({'back', 'top', 'left', 'right'}) do
-    if peripheral.getType(side) == 'modem' then
-        rednet.open(side)
-        break
-    end
-end
+rednet.open('back')
 
 
 -- IF UPDATED PRINT "UPDATED"
