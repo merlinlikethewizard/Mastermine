@@ -11,7 +11,7 @@ reverse_shift = {
 
 
 function load_mine()
-    -- LOAD MINE INTO STATE.MINE FROM /mine/<x,z>/ DIRECTORY
+    -- LOAD MINE INTO state.mine FROM /mine/<x,z>/ DIRECTORY
     state.mine_dir_path = '/mine/' .. config.locations.mine_enter.x .. ',' .. config.locations.mine_enter.z .. '/'
     state.mine = {}
     
@@ -439,6 +439,7 @@ function send_tasks(turtle)
             end
             turtle.task_id = turtle.task_id + 1
         elseif (not turtle_data.busy) and ((not task.epoch) or (task.epoch > os.clock()) or (task.epoch + config.task_timeout < os.clock())) then
+            -- ONLY SEND INSTRUCTION AFTER <config.task_timeout> SECONDS HAVE PASSED
             task.epoch = os.clock()
             print(string.format('Sending %s directive to %d', task.action, turtle.id))
             rednet.send(turtle.id, {

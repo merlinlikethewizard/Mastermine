@@ -1,5 +1,32 @@
 inf = 1e309
 
+bumps = {
+    north = { 0,  0, -1},
+    south = { 0,  0,  1},
+    east  = { 1,  0,  0},
+    west  = {-1,  0,  0},
+}
+
+left_shift = {
+    north = 'west',
+    south = 'east',
+    east  = 'north',
+    west  = 'south',
+}
+
+right_shift = {
+    north = 'east',
+    south = 'west',
+    east  = 'south',
+    west  = 'north',
+}
+
+reverse_shift = {
+    north = 'south',
+    south = 'north',
+    east  = 'west',
+    west  = 'east',
+}
 
 function dprint(thing)
     -- PRINT; IF TABLE PRINT EACH ITEM
