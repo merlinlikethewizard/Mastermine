@@ -7,6 +7,10 @@ Here's all the code for anyone who is interested. I've gone back through and mad
 
 [![https://www.youtube.com/watch?v=2I2VXl9Pg6Q](https://img.youtube.com/vi/2I2VXl9Pg6Q/0.jpg)](https://www.youtube.com/watch?v=2I2VXl9Pg6Q)
 
+#### Video tutorial:
+
+[![https://www.youtube.com/watch?v=2DTP1LXuiCg](https://img.youtube.com/vi/2DTP1LXuiCg/0.jpg)](https://www.youtube.com/watch?v=2DTP1LXuiCg)
+
 #### User commands:
 
 * on/go
