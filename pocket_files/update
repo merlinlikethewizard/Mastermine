@@ -1,6 +1,7 @@
+hub_id = tonumber(fs.open('/hub_id', 'r').readAll())
 rednet.open('back')
 
-print('Broadcasting update request...')
+print('Sending update request...')
 rednet.broadcast('/disk/pocket_files/', 'update_request')
 local sender, message, protocal = rednet.receive('update_package')
 

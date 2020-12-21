@@ -10,8 +10,8 @@ inf = 1e309
 --            Y
 --     ####### #######
 --     ####### #######
-mine_center = {x = 375, y = 70, z = 1060}
-c = mine_center
+mine_entrance = {x = 375, y = 70, z = 1060}
+c = mine_entrance
 
 
 -- SPACE IN BLOCKS BETWEEN MINESHAFTS
@@ -72,7 +72,7 @@ task_timeout = 0.5
 --     ore types should not be put on this list,
 --     but if not desired should be removed from
 --     <orenames> below.
-dig_blacklist = {
+dig_disallow = {
     'computer',
     'chest',
     'chair',
@@ -100,7 +100,7 @@ paths = {
     -- TRAVERSE AXES BETWEEN AREAS
     --     recommended not to change this one.
     home_to_home_exit          = 'zyx',
-    control_room_to_home_enter = 'xyz',
+    control_room_to_home_enter = 'yzx',
     home_to_waiting_room       = 'zyx',
     waiting_room_to_mine_exit  = 'yzx',
     mine_enter_to_strip        = 'yxz',
@@ -147,12 +147,12 @@ locations = {
      --     turtles can find there way home from
      --     here.
     control_room_area = {
-        min_x = c.x-6,
-        max_x = c.x+6,
+        min_x = c.x-8,
+        max_x = c.x+8,
         min_y = c.y+0,
-        max_y = c.y+2,
-        min_z = c.z-12,
-        max_z = c.z+3
+        max_y = c.y+8,
+        min_z = c.z-8,
+        max_z = c.z+8
     },
 
      -- WHERE TURTLES QUEUE TO BE PAIRED UP

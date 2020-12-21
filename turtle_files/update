@@ -1,5 +1,7 @@
-print('Broadcasting update request...')
-rednet.broadcast('/disk/turtle_files/', 'update_request')
+hub_id = tonumber(fs.open('/hub_id', 'r').readAll())
+
+print('Sending update request...')
+rednet.send(hub_id, '/disk/turtle_files/', 'update_request')
 local sender, message, protocal = rednet.receive('update_package')
 
 for _, file_name in pairs(fs.list('/')) do

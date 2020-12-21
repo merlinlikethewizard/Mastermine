@@ -439,7 +439,7 @@ function safedig(direction)
     
     local block_name = ({inspect[direction]()})[2].name
     if block_name then
-        for _, word in pairs(config.dig_blacklist) do
+        for _, word in pairs(config.dig_disallow) do
             if string.find(string.lower(block_name), word) then
                 return false
             end

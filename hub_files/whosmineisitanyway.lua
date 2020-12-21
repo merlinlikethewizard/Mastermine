@@ -333,10 +333,10 @@ function pair_turtles_begin(turtle1, turtle2)
     
     print('Pairing ' .. mining_turtle.id .. ' and ' .. chunky_turtle.id)
     
-    state.pair_hold = true
-    
     mining_turtle.pair = chunky_turtle
     chunky_turtle.pair = mining_turtle
+    
+    state.pair_hold = {mining_turtle, chunky_turtle}
         
     mining_turtle.steps_left = config.mission_length
     
@@ -649,8 +649,14 @@ function command_turtles()
 
                 elseif turtle.state == 'pair' then
                     -- TURTLE NEEDS A FRIEND
-                    if not turtle.pair and not state.pair_hold then
-                        table.insert(turtles_for_pair, turtle)
+                    if not state.pair_hold then
+                        if not turtle.pair then
+                            table.insert(turtles_for_pair, turtle)
+                        end
+                    else
+                        if not (state.pair_hold[1].pair and state.pair_hold[2].pair) then
+                            state.pair_hold = nil
+                        end
                     end
 
                 elseif turtle.state == 'wait' then
