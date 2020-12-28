@@ -1,7 +1,14 @@
 # Mastermine
 A fully automated strip mining network for ComputerCraft turtles!
 
-Here's all the code for anyone who is interested. I've gone back through and made it easier to deploy, and I'll make a tutorial on how to do so very soon.
+Here's all the code for anyone who is interested! Check out the tutorial below for installation instructions.
+
+Also, here are steps for a quick install via pastebin:
+
+1. Place your advanced computer next to a disk drive with a blank disk in.
+2. Run "pastebin get Wu3LRF99 mastermine.lua"
+3. Run "mastermine disk"
+4. Run "disk/hub.lua"
 
 #### Video description:
 
