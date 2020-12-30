@@ -14,15 +14,15 @@ Also, here are steps for a quick install via pastebin:
 
 I highly recommend using the PeripheralsPlusOne and its chunky turtles, but upon popular request I added the ability to disable the need for chunky turtle pairs. Just go to the config and set `use_chunky_turtles = false`
 
-#### Video description:
+## Video description:
 
 [![https://www.youtube.com/watch?v=2I2VXl9Pg6Q](https://img.youtube.com/vi/2I2VXl9Pg6Q/0.jpg)](https://www.youtube.com/watch?v=2I2VXl9Pg6Q)
 
-#### Video tutorial:
+## Video tutorial:
 
 [![https://www.youtube.com/watch?v=2DTP1LXuiCg](https://img.youtube.com/vi/2DTP1LXuiCg/0.jpg)](https://www.youtube.com/watch?v=2DTP1LXuiCg)
 
-#### User commands:
+## User commands:
 
 * `on/go`
 * `off/stop`
@@ -42,7 +42,7 @@ I highly recommend using the PeripheralsPlusOne and its chunky turtles, but upon
 use `*` as notation for all turtles
 
 
-#### Required mods:
+## Required mods:
 
 https://www.curseforge.com/minecraft/mc-mods/cc-tweaked
 
