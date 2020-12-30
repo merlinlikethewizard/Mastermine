@@ -104,6 +104,8 @@ function load_mine()
             strip.turtles = turtles
             turtles[1].pair = turtles[2]
             turtles[2].pair = turtles[1]
+        elseif #turtles == 1 and not config.use_chunky_turtles then
+            strip.turtles = turtles
         end
     end
 end
@@ -238,7 +240,7 @@ end
 
 function good_on_fuel(mining_turtle, chunky_turtle)
     local fuel_needed = math.ceil(basics.distance(mining_turtle.data.location, config.locations.mine_exit) * 1.5)
-    return (mining_turtle.data.fuel_level == "unlimited" or mining_turtle.data.fuel_level > fuel_needed) and (chunky_turtle.data.fuel_level == "unlimited" or chunky_turtle.data.fuel_level > fuel_needed)
+    return (mining_turtle.data.fuel_level == "unlimited" or mining_turtle.data.fuel_level > fuel_needed) and ((not config.use_chunky_turtles) or (chunky_turtle.data.fuel_level == "unlimited" or chunky_turtle.data.fuel_level > fuel_needed))
 end
 
 
@@ -260,13 +262,21 @@ function go_mine(mining_turtle)
     add_task(mining_turtle, {
         action = 'clear_gravity_blocks',
     })
-    add_task(mining_turtle, {
-        action = 'go_to_strip',
-        data = {mining_turtle.strip},
-        end_state = 'wait',
-        end_function = follow,
-        end_function_args = {mining_turtle.pair},
-    })
+    if config.use_chunky_turtles then
+        add_task(mining_turtle, {
+            action = 'go_to_strip',
+            data = {mining_turtle.strip},
+            end_state = 'wait',
+            end_function = follow,
+            end_function_args = {mining_turtle.pair},
+        })
+    else
+        add_task(mining_turtle, {
+            action = 'go_to_strip',
+            data = {mining_turtle.strip},
+            end_state = 'wait',
+        })
+    end
     mining_turtle.steps_left = mining_turtle.steps_left - 1
     local file = fs.open(state.turtles_dir_path .. mining_turtle.id .. '/deployed', 'w')
     file.write(mining_turtle.steps_left)
@@ -326,8 +336,8 @@ function pair_turtles_begin(turtle1, turtle2)
     
     if not strip then
         gen_next_strip()
-        add_task(turtle, {action = 'pass', end_state = 'idle'})
-        add_task(turtle, {action = 'pass', end_state = 'idle'})
+        add_task(mining_turtle, {action = 'pass', end_state = 'idle'})
+        add_task(chunky_turtle, {action = 'pass', end_state = 'idle'})
         return
     end
     
@@ -362,6 +372,47 @@ function pair_turtles_begin(turtle1, turtle2)
     add_task(mining_turtle, {
         action = 'go_to_strip',
         data = {mining_turtle.strip},
+        end_state = 'wait',
+    })
+    
+    gen_next_strip()
+end
+
+
+function solo_turtle_begin(turtle)
+    
+    local strip = state.next_strip
+    local level = strip.level
+    
+    if not strip then
+        gen_next_strip()
+        add_task(turtle, {action = 'pass', end_state = 'idle'})
+        return
+    end
+    
+    print('Assigning ' .. turtle.id)
+        
+    turtle.steps_left = config.mission_length
+    
+    strip.turtles = {turtle}
+    
+    for _, turtle in pairs(strip.turtles) do
+        turtle.strip = strip
+        write_turtle_strip(turtle, strip)
+        add_task(turtle, {action = 'pass', end_state = 'trip'})
+    end
+    
+    local file = fs.open(state.turtles_dir_path .. turtle.id .. '/deployed', 'w')
+    file.write(turtle.steps_left)
+    file.close()
+    
+    add_task(turtle, {
+        action = 'go_to_mine_enter',
+    })
+    
+    add_task(turtle, {
+        action = 'go_to_strip',
+        data = {turtle.strip},
         end_state = 'wait',
     })
     
@@ -607,7 +658,7 @@ function command_turtles()
 
                 if turtle.state == 'park' then
                     -- TURTLE FOUND PARKING
-                    if state.on then
+                    if state.on and (config.use_chunky_turtles or turtle.data.turtle_type == 'mining') then
                         add_task(turtle, {action = 'pass', end_state = 'idle'})
                     end
 
@@ -617,7 +668,7 @@ function command_turtles()
 
                 elseif turtle.state == 'lost' then
                     -- TURTLE IS CONFUSED
-                    if turtle.data.location.y < config.locations.mine_enter.y and turtle.pair then
+                    if turtle.data.location.y < config.locations.mine_enter.y and (turtle.pair or not config.use_chunky_turtles) then
                         add_task(turtle, {action = 'pass', end_state = 'trip'})
                         add_task(turtle, {
                             action = 'go_to_strip',
@@ -649,14 +700,18 @@ function command_turtles()
 
                 elseif turtle.state == 'pair' then
                     -- TURTLE NEEDS A FRIEND
-                    if not state.pair_hold then
-                        if not turtle.pair then
-                            table.insert(turtles_for_pair, turtle)
+                    if config.use_chunky_turtles then
+                        if not state.pair_hold then
+                            if not turtle.pair then
+                                table.insert(turtles_for_pair, turtle)
+                            end
+                        else
+                            if not (state.pair_hold[1].pair and state.pair_hold[2].pair) then
+                                state.pair_hold = nil
+                            end
                         end
                     else
-                        if not (state.pair_hold[1].pair and state.pair_hold[2].pair) then
-                            state.pair_hold = nil
-                        end
+                        solo_turtle_begin(turtle)
                     end
 
                 elseif turtle.state == 'wait' then
@@ -677,11 +732,18 @@ function command_turtles()
                                 go_mine(turtle)
                             end
                         end
+                    elseif not config.use_chunky_turtles then
+                        if turtle.steps_left <= 0 or turtle.data.empty_slot_count == 0 or not good_on_fuel(turtle) then
+                            add_task(turtle, {action = 'pass', end_state = 'idle'})
+                        else
+                            add_task(turtle, {action = 'pass', end_state = 'mine'})
+                            go_mine(turtle)
+                        end
                     else
                         add_task(turtle, {action = 'pass', end_state = 'idle'})
                     end
                 elseif turtle.state == 'mine' then
-                    if not turtle.pair then
+                    if config.use_chunky_turtles and not turtle.pair then
                         add_task(turtle, {action = 'pass', end_state = 'idle'})
                     end
                 end

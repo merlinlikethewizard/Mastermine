@@ -14,6 +14,16 @@ mine_entrance = {x = 375, y = 70, z = 1060}
 c = mine_entrance
 
 
+-- WHETHER OR NOT TURTLES NEED PAIRS
+--     added this because a good number of
+--     people were asking for the ability to
+--     disale chunky turtles in case they
+--     couldn't access the peripherals mod.
+--     WARNING: not using chunky turtles will
+--     result in narcoleptic turtles!
+use_chunky_turtles = true
+
+
 -- SPACE IN BLOCKS BETWEEN MINESHAFTS
 --     too close means less chance of finding
 --     ore veins, too far means longer commute
