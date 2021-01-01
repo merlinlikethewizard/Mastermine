@@ -600,13 +600,29 @@ function dump(direction)
 end
 
 
+function checkTags(data)
+    if type(data.tags) ~= 'table' then
+        return false
+    end
+    for k,v in pairs(data.tags) do
+        if config.blocktags[k] then
+            return true
+        end
+    end
+    return false
+end
+
+
 function detect_ore(direction)
-    if config.orenames[({inspect[direction]()})[2].name] then
+    local block = ({inspect[direction]()})[2]
+    if config.orenames[block.name] then
+        return true
+    elseif checkTags(block) then
         return true
     end
     return false
 end
-   
+
 
 function scan(valid, ores)
     local checked_left  = false
