@@ -26,14 +26,14 @@ I highly recommend using the PeripheralsPlusOne and its chunky turtles, but upon
 
 * `on/go`
 * `off/stop`
-* `turtle \<#\> \<action\>`
-* `update \<#\>`
-* `reboot \<#\>`
-* `shutdown \<#\>`
-* `reset \<#\>`
-* `clear \<#\>`
-* `halt \<#\>`
-* `return \<#\>`
+* `turtle <#> <action>`
+* `update <#>`
+* `reboot <#>`
+* `shutdown <#>`
+* `reset <#>`
+* `clear <#>`
+* `halt <#>`
+* `return <#>`
 * `hubupdate`
 * `hubreboot`
 * `hubshutdown`
