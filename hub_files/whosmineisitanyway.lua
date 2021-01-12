@@ -40,12 +40,20 @@ function load_mine()
             for _, file_name in pairs(fs.list(level_dir_path)) do
                 if file_name:sub(1, 1) ~= '.' then
                     if file_name == 'main_shaft' then
-                        local xs = string.gmatch(fs.open(level_dir_path .. file_name, 'r').readAll(), '[^,]+')
+                        local file = fs.open(level_dir_path .. file_name, 'r')
+                        if file == nil then
+                            error('Failed to open file ' .. level_dir_path .. file_name)
+                        end
+                        local xs = string.gmatch(file.readAll(), '[^,]+')
                         state.mine[level].main_shaft = {}
                         state.mine[level].main_shaft.west = {name = 'main_shaft', x = tonumber(xs()), y = level, z = config.locations.mine_enter.z, orientation = 'west'}
                         state.mine[level].main_shaft.east = {name = 'main_shaft', x = tonumber(xs()), y = level, z = config.locations.mine_enter.z, orientation = 'east'}
                     else
-                        local zs = string.gmatch(fs.open(level_dir_path .. file_name, 'r').readAll(), '[^,]+')
+                        local file = fs.open(level_dir_path .. file_name, 'r')
+                        if file == nil then
+                            error('Failed to open file ' .. level_dir_path .. file_name)
+                        end
+                        local zs = string.gmatch(file.readAll(), '[^,]+')
                         local x = tonumber(file_name)
                         state.mine[level][x] = {}
                         state.mine[level][x].north = {name = x, x = x, y = level, z = tonumber(zs()), orientation = 'north'}
@@ -71,8 +79,11 @@ function load_mine()
             state.turtles[turtle_id] = turtle
             local turtle_dir_path = state.turtles_dir_path .. turtle_id .. '/'
             if fs.exists(turtle_dir_path .. 'strip') then
-
-                local strip_args = string.gmatch(fs.open(turtle_dir_path .. 'strip', 'r').readAll(), '[^,]+')
+                local file = fs.open(turtle_dir_path .. 'strip', 'r')
+                if file == nil then
+                    error('Failed to open file ' .. turtle_dir_path .. 'strip')
+                end
+                local strip_args = string.gmatch(file.readAll(), '[^,]+')
 
                 local level = tonumber(strip_args())
                 local name = strip_args()
@@ -84,7 +95,11 @@ function load_mine()
                 if state.mine[level] and state.mine[level][name] and state.mine[level][name][orientation] then
                     turtle.strip = state.mine[level][name][orientation]
                     if fs.exists(turtle_dir_path .. 'deployed') then
-                        turtle.steps_left = tonumber(fs.open(turtle_dir_path .. 'deployed', 'r').readAll())
+                        file = fs.open(turtle_dir_path .. 'deployed', 'r')
+                        if file == nil then
+                            error('Failed to open file ' .. turtle_dir_path .. 'deployed')
+                        end
+                        turtle.steps_left = tonumber(file.readAll())
                         if not turtle_pairs[turtle.strip] then
                             turtle_pairs[turtle.strip] = {}
                         end
