@@ -219,6 +219,15 @@ function turtle_viewer(turtle_ids)
             term.setBackgroundColor(colors.blue)
             term.setCursorPos(elements.turtle_face.x, elements.turtle_face.y + 2)
             term.write(' ')
+        elseif turtle.data.peripheral_right == 'chunky' then
+            term.setBackgroundColor(colors.white)
+            term.setCursorPos(elements.turtle_face.x, elements.turtle_face.y + 1)
+            term.write(' ')
+            term.setCursorPos(elements.turtle_face.x, elements.turtle_face.y + 3)
+            term.write(' ')
+            term.setBackgroundColor(colors.red)
+            term.setCursorPos(elements.turtle_face.x, elements.turtle_face.y + 2)
+            term.write(' ')
         end
         
         if turtle.data.peripheral_left == 'modem' then
@@ -245,6 +254,15 @@ function turtle_viewer(turtle_ids)
             term.setCursorPos(elements.turtle_face.x + 8, elements.turtle_face.y + 3)
             term.write(' ')
             term.setBackgroundColor(colors.blue)
+            term.setCursorPos(elements.turtle_face.x + 8, elements.turtle_face.y + 2)
+            term.write(' ')
+        elseif turtle.data.peripheral_left == 'chunky' then
+            term.setBackgroundColor(colors.white)
+            term.setCursorPos(elements.turtle_face.x + 8, elements.turtle_face.y + 1)
+            term.write(' ')
+            term.setCursorPos(elements.turtle_face.x + 8, elements.turtle_face.y + 3)
+            term.write(' ')
+            term.setBackgroundColor(colors.red)
             term.setCursorPos(elements.turtle_face.x + 8, elements.turtle_face.y + 2)
             term.write(' ')
         end

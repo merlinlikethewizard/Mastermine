@@ -550,7 +550,7 @@ function initialize(session_id, config_values)
     -- DETERMINE TURTLE TYPE
     state.peripheral_left = peripheral.getType('left')
     state.peripheral_right = peripheral.getType('right')
-    if state.peripheral_left == 'chunkLoader' or state.peripheral_right == 'chunkLoader' then
+    if state.peripheral_left == 'chunkLoader' or state.peripheral_right == 'chunkLoader' or state.peripheral_left == 'chunky' or state.peripheral_right == 'chunky' then
         state.type = 'chunky'
         for k, v in pairs(config.chunky_turtle_locations) do
             config.locations[k] = v
