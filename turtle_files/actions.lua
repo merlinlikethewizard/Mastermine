@@ -604,6 +604,9 @@ function checkTags(data)
     if type(data.tags) ~= 'table' then
         return false
     end
+    if not config.blocktags then
+        return false
+    end
     for k,v in pairs(data.tags) do
         if config.blocktags[k] then
             return true

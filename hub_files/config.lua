@@ -10,7 +10,7 @@ inf = 1e309
 --            Y
 --     ####### #######
 --     ####### #######
-mine_entrance = {x = 375, y = 70, z = 1060}
+mine_entrance = {x = 104, y = 76, z = 215}
 c = mine_entrance
 
 
@@ -101,7 +101,7 @@ mine_levels = {
     -- {level = 40, chance = 0.2},
     -- {level = 12, chance = 0.5},
 
-    {level = 52, chance = 1.0},
+    {level = 63, chance = 1.0},
 }
 
 
