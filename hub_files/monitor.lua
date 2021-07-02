@@ -141,6 +141,14 @@ function turtle_viewer(turtle_ids)
                 table.insert(state.user_input, 'turtle ' .. turtle_id .. ' go left')
             elseif monitor_touch.x == elements.turtle_right.x and monitor_touch.y == elements.turtle_right.y then
                 table.insert(state.user_input, 'turtle ' .. turtle_id .. ' go right')
+            elseif turtle.data.turtle_type == 'mining' then
+                if monitor_touch.x == elements.turtle_dig_up.x and monitor_touch.y == elements.turtle_dig_up.y then
+                    table.insert(state.user_input, 'turtle ' .. turtle_id .. ' digblock up')
+                elseif monitor_touch.x == elements.turtle_dig.x and monitor_touch.y == elements.turtle_dig.y then
+                    table.insert(state.user_input, 'turtle ' .. turtle_id .. ' digblock forward')
+                elseif monitor_touch.x == elements.turtle_dig_down.x and monitor_touch.y == elements.turtle_dig_down.y then
+                    table.insert(state.user_input, 'turtle ' .. turtle_id .. ' digblock down')
+                end
             end
         end
         
@@ -414,6 +422,36 @@ function turtle_viewer(turtle_ids)
         term.setTextColor(colors.gray)
         term.setBackgroundColor(background_color)
         term.write('-RIGHT')
+        
+        term.setCursorPos(elements.turtle_dig_up.x, elements.turtle_dig_up.y)
+        term.setTextColor(colors.white)
+        if turtle.data.turtle_type == 'mining' then
+            term.setBackgroundColor(colors.green)
+        else
+            term.setBackgroundColor(colors.gray)
+        end
+        term.write('^')
+        
+        term.setCursorPos(elements.turtle_dig.x, elements.turtle_dig.y)
+        term.setTextColor(colors.white)
+        if turtle.data.turtle_type == 'mining' then
+            term.setBackgroundColor(colors.green)
+        else
+            term.setBackgroundColor(colors.gray)
+        end
+        term.write('*')
+        term.setTextColor(colors.gray)
+        term.setBackgroundColor(background_color)
+        term.write('-DIG')
+        
+        term.setCursorPos(elements.turtle_dig_down.x, elements.turtle_dig_down.y)
+        term.setTextColor(colors.white)
+        if turtle.data.turtle_type == 'mining' then
+            term.setBackgroundColor(colors.green)
+        else
+            term.setBackgroundColor(colors.gray)
+        end
+        term.write('v')
         
         term.setTextColor(colors.white)
         if selected == 1 then
@@ -814,12 +852,15 @@ function init_elements()
         turtle_clear     = {x = 26, y = 12},
         turtle_reset     = {x = 26, y = 13},
         turtle_find      = {x = 26, y = 14},
-        turtle_forward   = {x = 14, y = 16},
-        turtle_back      = {x = 14, y = 18},
-        turtle_up        = {x = 27, y = 16},
-        turtle_down      = {x = 27, y = 18},
-        turtle_left      = {x = 10, y = 17},
-        turtle_right     = {x = 18, y = 17},
+        turtle_forward   = {x = 10, y = 16},
+        turtle_back      = {x = 10, y = 18},
+        turtle_up        = {x = 23, y = 16},
+        turtle_down      = {x = 23, y = 18},
+        turtle_left      = {x =  6, y = 17},
+        turtle_right     = {x = 14, y = 17},
+        turtle_dig_up    = {x = 31, y = 16},
+        turtle_dig       = {x = 31, y = 17},
+        turtle_dig_down  = {x = 31, y = 18},
         menu_title       = {x =  9, y =  3},
         menu_toggle      = {x = 10, y = 11},
         menu_update      = {x = 10, y = 13},

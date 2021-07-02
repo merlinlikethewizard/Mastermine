@@ -122,6 +122,12 @@ getblock = {
 }
 
 
+function digblock(direction)
+    dig[direction]()
+    return true
+end
+
+
 function delay(duration)
     sleep(duration)
     return true

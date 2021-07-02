@@ -157,7 +157,7 @@ locations = {
      --     turtles can find there way home from
      --     here.
     control_room_area = {
-        min_x = c.x-8,
+        min_x = c.x-16,
         max_x = c.x+8,
         min_y = c.y+0,
         max_y = c.y+8,

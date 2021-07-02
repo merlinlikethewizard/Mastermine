@@ -35,7 +35,9 @@ while true do
                         if fs.isDir(sub_path_name) then
                             table.insert(queue, sub_dir_name)
                         else
-                            update_package[sub_dir_name] = fs.open(sub_path_name, 'r').readAll()
+                            local file = fs.open(sub_path_name, 'r')
+                            update_package[sub_dir_name] = file.readAll()
+                            file.close()
                         end
                     end
                 end
