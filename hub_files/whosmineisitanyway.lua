@@ -39,24 +39,15 @@ function load_mine()
         else
             for _, file_name in pairs(fs.list(level_dir_path)) do
                 if file_name:sub(1, 1) ~= '.' then
-                    if file_name == 'main_shaft' then
-                        local file = fs.open(level_dir_path .. file_name, 'r')
-                        if file == nil then
-                            -- error('Failed to open file ' .. level_dir_path .. file_name)
-                            print('Failed to open file ' .. level_dir_path .. file_name)
-                            basics.dprint(fs.list(level_dir_path))
-                        else
+                    local file = fs.open(level_dir_path .. file_name, 'r')
+                    if file == nil then
+                        error('Failed to open file ' .. level_dir_path .. file_name)
+                    else
+                        if file_name == 'main_shaft' then
                             local xs = string.gmatch(file.readAll(), '[^,]+')
                             state.mine[level].main_shaft = {}
                             state.mine[level].main_shaft.west = {name = 'main_shaft', x = tonumber(xs()), y = level, z = config.locations.mine_enter.z, orientation = 'west'}
                             state.mine[level].main_shaft.east = {name = 'main_shaft', x = tonumber(xs()), y = level, z = config.locations.mine_enter.z, orientation = 'east'}
-                        end
-                    else
-                        local file = fs.open(level_dir_path .. file_name, 'r')
-                        if file == nil then
-                            -- error('Failed to open file ' .. level_dir_path .. file_name)
-                            print('Failed to open file ' .. level_dir_path .. file_name)
-                            basics.dprint(fs.list(level_dir_path))
                         else
                             local zs = string.gmatch(file.readAll(), '[^,]+')
                             local x = tonumber(file_name)
@@ -64,6 +55,7 @@ function load_mine()
                             state.mine[level][x].north = {name = x, x = x, y = level, z = tonumber(zs()), orientation = 'north'}
                             state.mine[level][x].south = {name = x, x = x, y = level, z = tonumber(zs()), orientation = 'south'}
                         end
+                        file.close()
                     end
                 end
             end
