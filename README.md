@@ -10,9 +10,9 @@ Also, here are steps for a quick install via pastebin:
 3. Run `mastermine disk`
 4. Run `disk/hub.lua`
 
-## Play with or without PeripheralsPlusOne
+## Play with or without Peripherals
 
-I highly recommend using the PeripheralsPlusOne and its chunky turtles, but upon popular request I added the ability to disable the need for chunky turtle pairs. Just go to the config and set `use_chunky_turtles = false`
+I highly recommend using the a peripherals mod with chunky turtles, but upon popular request I added the ability to disable the need for chunky turtle pairs. Just go to the config and set `use_chunky_turtles = false`
 
 ## Video description:
 
@@ -44,8 +44,17 @@ use `*` as notation for all turtles
 
 ## Required mods:
 
+CC Tweaked
 https://www.curseforge.com/minecraft/mc-mods/cc-tweaked
 
+### For Minecraft 1.16:
+
+Advanced Peripherals
+https://www.curseforge.com/minecraft/mc-mods/advanced-peripherals
+
+### For Minecraft 1.12:
+
+Peripherals Plus One
 https://github.com/rolandoislas/PeripheralsPlusOne
 
 Required by PeripheralsPlusOne: https://www.curseforge.com/minecraft/mc-mods/the-framework
