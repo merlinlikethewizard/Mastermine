@@ -10,7 +10,7 @@ Also, here are steps for a quick install via pastebin:
 3. Run `mastermine disk`
 4. Run `disk/hub.lua`
 
-## Play with or without Peripherals
+## Play with or without Peripherals:
 
 I highly recommend using the a peripherals mod with chunky turtles, but upon popular request I added the ability to disable the need for chunky turtle pairs. Just go to the config and set `use_chunky_turtles = false`
 
@@ -51,6 +51,22 @@ Hopefully that covers a lot of it. Again, lemme know if you still can't get the 
 
 
 use `*` as notation for all turtles
+
+## Floppy disk limit:
+
+There's a built in limit in computer craft for how much data a floppy disk can store, and as it happens Mastermine is bigger. There are two solutions for dealing with this.
+1. The size of floppy disks can be increased in the mod's config file, assuming you have access to that (this is the preferred option).
+2. There are a number of reasons one might not be able to edit the config file, so there is a second, workaround-y option in which the data isn't fully stored on the disk. To do it, start with the regular computer + monitor + modem + disk drive + floppy disk setup, and then enter the following into the hub computer:
+
+       pastebin get CtcSGkpc mastermine.lua
+       mkdir files
+       mastermine files
+       mv files/hub_files/* .
+       mv files/turtle_files disk
+       mv files/turtle.lua disk
+       reboot
+       
+   After this you should be able to add turtles to the system as usual. The only downside is that you will not be able to update the hub from the disk. All of the hub files will be local. This means the process for editing the config file is slightly different, in that you need to edit the config.lua file on the hub rather than on the disk.
 
 
 ## Required mods:
