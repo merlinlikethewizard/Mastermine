@@ -624,7 +624,7 @@ end
 
 function detect_ore(direction)
     local block = ({inspect[direction]()})[2]
-    if config.orenames[block.name] then
+    if config.orenames[block.name] or block.name:lower():find("ore") then
         return true
     elseif checkTags(block) then
         return true
